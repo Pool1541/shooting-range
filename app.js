@@ -1,9 +1,8 @@
 // Variables globales
 
-const pantalla = document.querySelector('canvas');
-const pincel = pantalla.getContext('2d');
-const containerPuntos = document.getElementById('puntos');
-const btnComenzar = document.getElementById('comenzar');
+const display = document.querySelector('canvas');
+const pincel = display.getContext('2d');
+const scoreContainer = document.getElementById('puntos');
 const time = document.getElementById('time');
 const timeDiv = document.getElementById('time-div');
 const spawnDelay = document.getElementById('spawn-delay');
@@ -39,8 +38,8 @@ getLocalData();
 // Historial de estadísticas.
 
 function setModalPosition() {
-  recordModal.style.left = pantalla.offsetLeft + 'px';
-  recordModal.style.top = pantalla.offsetTop + 'px';
+  recordModal.style.left = display.offsetLeft + 'px';
+  recordModal.style.top = display.offsetTop + 'px';
 }
 
 window.addEventListener('load', setModalPosition); // Establecemos la posición del modal por primera vez cuando se haya cargado la página.
@@ -133,30 +132,30 @@ function disenharCircunferencia(x,y,radio, color) {
 }
 
 function center() {
-  const x = pantalla.width / 2;
-  const y = pantalla.height / 2;
-  limpiarPantalla();
+  const x = display.width / 2;
+  const y = display.height / 2;
+  cleanDisplay();
   disenharCircunferencia(x,y,30,'red');
   disenharCircunferencia(x,y,20,'white');
   disenharCircunferencia(x,y,10,'red');
 }
 
 function firstClick(e) {
-  const screenX = pantalla.width / 2;
-  const screenY = pantalla.height / 2;
-  const mouseX = e.clientX - pantalla.offsetLeft;
-  const mouseY = e.clientY - pantalla.offsetTop;
+  const screenX = display.width / 2;
+  const screenY = display.height / 2;
+  const mouseX = e.clientX - display.offsetLeft;
+  const mouseY = e.clientY - display.offsetTop;
   if((mouseX < screenX + 10) &&
       (mouseX > screenX - 10) &&
       (mouseY < screenY + 10) &&
       (mouseY > screenY - 10)) {
-      limpiarPantalla();
-      pantalla.onclick = '';
+      cleanDisplay();
+      display.onclick = '';
       start();
     }
 }
 
-function limpiarPantalla() {
+function cleanDisplay() {
   pincel.clearRect(0,0,600,400);
   pincel.fillStyle = 'lightgrey';
   pincel.fillRect(0,0,600,400);
@@ -164,7 +163,7 @@ function limpiarPantalla() {
 
 function crearLiana() {
   shoot = false;
-  limpiarPantalla();
+  cleanDisplay();
   let x = Math.round(Math.random()*540) + 30;
   let y = Math.round(Math.random()*340) + 30;
   coordX = x;
@@ -174,37 +173,36 @@ function crearLiana() {
   disenharCircunferencia(x,y,10,'red');
 }
 
-function getCoordinates(e) {
-  const mouseX = e.clientX - pantalla.offsetLeft;
-  const mouseY = e.clientY - pantalla.offsetTop;
-  console.log(mouseX, coordX);
+function handleShoot(e) {
+  const mouseX = e.clientX - display.offsetLeft;
+  const mouseY = e.clientY - display.offsetTop;
   if(shoot == false){
     if((mouseX < coordX + 10) &&
       (mouseX > coordX - 10) &&
       (mouseY < coordY + 10) &&
       (mouseY > coordY - 10)) {
       shoot = true;
-      limpiarPantalla();
-      createElement();
+      cleanDisplay();
+      setAnimation();
       score = score + 100;
       hits++;
-      containerPuntos.innerText = score;
+      scoreContainer.innerText = score;
     } else {
       score = score - 50;
-      containerPuntos.innerText = score;
+      scoreContainer.innerText = score;
       misses++;
     }
     shots++
   }
 }
 
-function createElement(){
+function setAnimation(){
   const h3 = document.createElement('h3');
   h3.textContent = '+100';
   document.querySelector('body').appendChild(h3);
   const texto = document.querySelector('h3');
-  texto.style.left = (coordX + pantalla.offsetLeft + 35) + "px";
-  texto.style.top = (coordY + pantalla.offsetTop - 20) + "px";
+  texto.style.left = (coordX + display.offsetLeft + 35) + "px";
+  texto.style.top = (coordY + display.offsetTop - 20) + "px";
   h3.addEventListener('animationend', ()=> {
     h3.remove();
   });
@@ -212,19 +210,19 @@ function createElement(){
 
 function start() {
   hits = 0;
-  containerPuntos.innerText = score;
+  scoreContainer.innerText = score;
   const interval = setInterval(crearLiana, delay);
-  pantalla.onclick = getCoordinates;
+  display.onclick = handleShoot;
 
   const timeOut = setTimeout(() => {
     clearInterval(interval);
-    pantalla.onclick = firstClick;
+    display.onclick = firstClick;
     center();
     openRecord();
   }, duration + 1000);
 }
 
-pantalla.onclick = getCoordinates;
+display.onclick = handleShoot;
 
-pantalla.onclick = firstClick;
+display.onclick = firstClick;
 center();
