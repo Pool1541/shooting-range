@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Juego de tiro al blanco</title>
+</head>
+<body>
+  <main>
+    <canvas width="600" height="400" style="cursor: crosshair;"></canvas>
+    <div class="config-container">
+      <h2>Puntuación : <span id="puntos">0</span></h2>
+      <div id="config" class="config">
+        <div class="config-div">
+          <p>Duración</p>
+          <input type="range" min="15" max="60" id="time">
+          <div id="time-div"></div>
+        </div>
+        <div class="config-div">
+          <p>Retraso de aparición</p>
+          <input type="range" min="1" max="20" id="spawn-delay">
+          <div id="spawnDelay-div"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="record" id="record-modal">
+        <div class="record-container">
+          <div class="record-content">
+            <div class="stats">
+              <h2>Estadisticas</h2>
+            </div>
+            <div class="record-label">
+              <p>Puntaje</p><span id="score">0</span>
+            </div>
+            <div class="record-label">
+              <p>Tiros</p><span id="shots">0</span>
+            </div>
+            <div class="record-label">
+              <p>Aciertos</p><span id="hits">0</span>
+            </div>
+            <div class="record-label">
+              <p>Fallos</p><span id="misses">0</span>
+            </div>
+          </div>
+          <div class="historial-content">
+            <h2>Puntajes más altos</h2>
+            <table id="record-table">
+              <thead>
+                <tr>
+                  <th>Puntaje</th>
+                  <th>Aciertos</th>
+                  <th>Fallos</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <button id="btn-close" class="btn">Cerrar</button>
+      </div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

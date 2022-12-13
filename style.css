@@ -1,0 +1,163 @@
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas {
+  width: 600px;
+  height:  400px;
+}
+
+
+h3 {
+  position: absolute;
+  top: 94px;
+  left: 502px;
+  animation: hit .3s ease forwards;
+  z-index: 10;
+}
+
+/* Config */
+
+.config-container {
+  width: auto;
+  user-select: none;
+}
+
+.config-container h2 {
+  padding: 15px 0 ;
+}
+
+.config {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.config-div {
+  display: flex;
+}
+
+.config-div > * {
+  display: inline-block;
+  width: 170px;
+}
+
+.config-div  div {
+  width: 30px;
+  padding: 5px 0;
+  text-align: center;
+  background-color: rgb(202, 202, 202);
+  border-radius: 4px;
+  margin-left: 20px;
+}
+
+.config-div p {
+  align-self: center;
+}
+
+/* Modal */
+
+.record {
+  width: 600px;
+  height: 400px;
+  background-color: rgba(24, 24, 24, 0.5);
+  position: absolute;
+  display: none;
+}
+
+.record-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+  color: rgb(221, 221, 221);
+}
+
+.record-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stats {
+  color: rgb(39, 39, 43);
+  margin-bottom: 20px;
+}
+
+.record-label {
+  font-size: 1.2rem;
+}
+
+.record-label p {
+  display: inline-block;
+  width: 90px;
+}
+
+.record-label span {
+  margin-left: 10px;
+}
+
+/* Historial record */
+
+.historial-content h2 {
+  margin-bottom: 20px;
+  margin-left: 15px;
+  color: rgb(39, 39, 43);
+}
+
+#record-table{
+  display: block;
+  max-height: 215px;
+  overflow: hidden;
+}
+
+#record-table thead {
+  color: rgb(39, 39, 43);
+}
+
+#record-table th {
+  padding: 8px 15px;
+}
+
+
+.btn {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  color: rgb(54, 53, 53);
+  cursor: pointer;
+  padding: 5px 25px;
+  border-radius: 5px;
+  background-color: rgb(204, 204, 204);
+}
+
+
+
+
+@keyframes hit {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.5; 
+  }
+
+  100% {
+    transform: translateY(-20px);
+    opacity: 0; 
+  }
+}
